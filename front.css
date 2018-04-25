@@ -1,0 +1,33 @@
+.input {
+  padding-bottom: 4%;
+}
+
+.label {
+  padding-bottom: 4%;
+}
+
+.sub_header {
+  margin-bottom: 8px;
+  margin-top: 8px;
+  font-size: 20px;
+}
+
+.main_header {
+  margin-bottom: 16px;
+  margin-top: 16px;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  margin-bottom: 2%;
+}
+
+.size-content {
+  height: 100%;
+}
+
+input[type=text],
+select {
+  width: 50%;
+}
