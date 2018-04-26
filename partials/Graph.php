@@ -22,6 +22,13 @@ abstract class Graph {
 	//args refer to specific columns being queried
 	abstract protected function createGraph($data);
 
+	public function getWidth(){return $this->width;}
+	public function getHeight(){return $this->height;}
+	public function getEmail(){return $this->email;}
+	public function getHash(){return $this->hash;}
+	public function getTitle(){return $this->graphTitle;}
+	public function getFontSize(){return $this->fontSize;}
+
 	public function constructGraph(){
 		$data = $this->queryData();
 		$content = $this->createGraph($data);

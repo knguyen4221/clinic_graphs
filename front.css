@@ -27,6 +27,10 @@
   height: 100%;
 }
 
+.variable {
+  margin-bottom: 16px;
+}
+
 input[type=text],
 select {
   width: 50%;

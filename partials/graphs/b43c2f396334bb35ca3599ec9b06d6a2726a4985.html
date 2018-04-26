@@ -1,0 +1,19 @@
+<html><head><script type='text/javascript' src='https://www.gstatic.com/charts/loader.js'></script>
+		<script type='text/javascript'>google.charts.load('current', {'packages':['bar']});
+		google.charts.setOnLoadCallback(drawChart);
+		function drawChart() { 
+			var data = google.visualization.arrayToDataTable([['adgroup','American Indian','Asian Indian','Black','Chinese','Hispanic / American Indian','Hispanic / Latino','Hispanic / North American (Mexican/Mexican-American/Chicano)','Japanese','Korean','White'],['ADRC',0,0,2,42,2,6,0,3,3,86],['CADC/ADRC',1,2,3,18,1,6,1,3,1,121]]);var options = {
+			chart : {
+				title: '',}, 
+				isStacked: true,
+				width: 600,
+				height: 600,
+			};
+		var chart = new google.charts.Bar(document.getElementById('stackedbarchart_material'));
+		chart.draw(data, google.charts.Bar.convertOptions(options));}</script>
+		</head>
+		<body>
+		<div id="stackedbarchart_material" style='width: px; height: px;'>
+		</div>
+		</body>
+		</html>

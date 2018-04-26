@@ -17,6 +17,10 @@ function renderGraph($post){
 		include 'Histogram.php';
 		$graph = new Histogram($post['gTitle'], $post['fontSize'], $post['width'], $post['height'], $post['email'], $dataInputs);
 		echo $graph->constructGraph();
+	}else if($post['graph_type'] == "stacked_bar_chart"){
+		include 'StackedBarChart.php';
+		$graph = new StackedBarChart($post['gTitle'], $post['fontSize'], $post['width'], $post['height'], $post['email'], $dataInputs);
+		echo $graph->constructGraph();
 	}
 
 }

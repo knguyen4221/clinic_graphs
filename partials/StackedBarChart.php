@@ -22,7 +22,7 @@ class StackedBarChart extends Graph{
 			$conn = mssql_connect($host, $userName, $password);
 			if($conn){
 				mssql_select_db($dbName, $conn);
-				$query = mssql_query('SELECT ' . $this->x_axis . ", ".$this->grouping.", COUNT(*) as counts FROM demographics GROUP BY " . $this->x_axis . ", " . $this->grouping , "ORDER BY " . $this->x_axis);
+				$query = mssql_query('SELECT ' . $this->x_axis . ", ".$this->grouping.", COUNT(*) as counts FROM demographics GROUP BY " . $this->x_axis . ", " . $this->grouping . " ORDER BY " . $this->x_axis);
 				while($results[] = mssql_fetch_array($query)){}
 				return $results;
 			}else{
@@ -36,7 +36,7 @@ class StackedBarChart extends Graph{
 		}
 	}
 
-	protected function createGraph(){
+	protected function createGraph($data){
 		$result = "<html><head><script type='text/javascript' src='https://www.gstatic.com/charts/loader.js'></script>
 		<script type='text/javascript'>google.charts.load('current', {'packages':['bar']});
 		google.charts.setOnLoadCallback(drawChart);
@@ -65,17 +65,18 @@ class StackedBarChart extends Graph{
 				++$counter;
 			}
 			$result .= ",".$data[$i]['counts'];
+			++$counter;
 		}
-		$result .= "]);";
+		$result .= "]]);";
 		$result .= "var options = {
 			chart : {
 				title: '". $this->graphTitle . "',}, 
 				isStacked: true,
-				width: ". $this->width . ",
-				height: ". $this->height. ",
+				width: ". $this->getWidth() . ",
+				height: ". $this->getHeight() . ",
 			};
 		";
-		$result .= "var chart = new google.charts.Bar(document.getElementById(stackedbarchart_material'));
+		$result .= "var chart = new google.charts.Bar(document.getElementById('stackedbarchart_material'));
 		chart.draw(data, google.charts.Bar.convertOptions(options));}</script>
 		</head>
 		<body>
@@ -84,7 +85,6 @@ class StackedBarChart extends Graph{
 		</body>
 		</html>";
 		return $this->create_wp_page($result);
-	}
 	}
 
 	private function getUniqueGrouping(){
@@ -104,8 +104,8 @@ class StackedBarChart extends Graph{
 		}finally{
 			mssql_free_result($query);
 			mssql_close($conn);
+		}
+
 	}
-
-
 }
 ?>

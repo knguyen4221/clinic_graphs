@@ -24,6 +24,7 @@ jQuery(document).ready(function() {
         }
     });
 
+
     // function updateDataChoices(){
     //     jQuery.ajax({
     //         type: "POST",
@@ -49,25 +50,31 @@ jQuery(document).ready(function() {
         console.log(jQuery("#graph_type").val());
         console.log(jQuery("#title").val());
         console.log(WPC_Ajax.ajaxurl);
-        jQuery.ajax({
-            type: "POST",
-            url: WPC_Ajax.ajaxurl,
-            data: {action: "wpc_post_graph",
-                graph_type: jQuery("#graph_type").val(),
-                gTitle : jQuery("#title").val(),
-                fontSize : jQuery("#fontSize").val(),
-                height : jQuery("#height").val(),
-                width : jQuery("#width").val(),
-                email : jQuery("#email").val(),
-                data: JSON.stringify(dataInput),
-            },
-            success: function(data){
-                var postInfo = JSON.parse(data);
-                console.log(postInfo);
-                jQuery("#hash").text("Graph with hash: " + postInfo[0]);
-                jQuery("#permalink").html("<a href='"+JSON.stringify(postInfo[1])+"'>"+JSON.stringify(postInfo[1])+"</a>");
-            }
-        });
+        //checking for duplicates in dataInputs
+        let set = new Set(dataInput);
+        if(set.size == dataInput.length){
+            jQuery.ajax({
+                type: "POST",
+                url: WPC_Ajax.ajaxurl,
+                data: {action: "wpc_post_graph",
+                    graph_type: jQuery("#graph_type").val(),
+                    gTitle : jQuery("#title").val(),
+                    fontSize : jQuery("#fontSize").val(),
+                    height : jQuery("#height").val(),
+                    width : jQuery("#width").val(),
+                    email : jQuery("#email").val(),
+                    data: JSON.stringify(dataInput),
+                },
+                success: function(data){
+                    var postInfo = JSON.parse(data);
+                    console.log(postInfo);
+                    jQuery("#hash").text("Graph with hash: " + postInfo[0]);
+                    jQuery("#permalink").html("<a href='"+JSON.stringify(postInfo[1])+"'>"+JSON.stringify(postInfo[1])+"</a>");
+                }
+            });
+        }else{
+            jQuery("#hash").text("You can't have two of the same variables");
+        }
     }
   }
 );
